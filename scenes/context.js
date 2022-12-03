@@ -42,7 +42,7 @@ class SceneContext {
 
   enter (sceneId, initialState, silent) {
     if (!sceneId || !this.scenes.has(sceneId)) {
-      throw new Error(`Can't find scene: ${sceneId}`)
+      console.log(`Can't find scene: ${sceneId}`)
     }
     const leave = silent ? noop() : this.leave()
     return leave.then(() => {

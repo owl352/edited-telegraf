@@ -32,7 +32,7 @@ class Telegraf extends Composer {
       console.error()
       console.error((err.stack || err.toString()).replace(/^/gm, '  '))
       console.error()
-      throw err
+      console.log(err)
     }
     this.context = {}
     this.polling = {
@@ -111,7 +111,7 @@ class Telegraf extends Composer {
             .then(() => debug('Bot started with long-polling'))
         }
         if (typeof config.webhook.domain !== 'string' && typeof config.webhook.hookPath !== 'string') {
-          throw new Error('Webhook domain or webhook path is required')
+          console.log('Webhook domain or webhook path is required')
         }
         let domain = config.webhook.domain || ''
         if (domain.startsWith('https://') || domain.startsWith('http://')) {
@@ -150,7 +150,7 @@ class Telegraf extends Composer {
 
   handleUpdates (updates) {
     if (!Array.isArray(updates)) {
-      return Promise.reject(new Error('Updates must be an array'))
+      // return Promise.reject(new Error('Updates must be an array'))
     }
     const processAll = Promise.all(updates.map((update) => this.handleUpdate(update)))
     if (this.options.handlerTimeout === 0) {
@@ -180,7 +180,7 @@ class Telegraf extends Composer {
     this.telegram.getUpdates(timeout, limit, offset, allowedUpdates)
       .catch((err) => {
         if (err.code === 401 || err.code === 409) {
-          throw err
+          console.log(err)
         }
         const wait = (err.parameters && err.parameters.retry_after) || this.options.retryAfter
         console.error(`Failed to fetch updates. Waiting: ${wait}s`, err.message)

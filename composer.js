@@ -137,7 +137,7 @@ class Composer {
 
   static lazy (factoryFn) {
     if (typeof factoryFn !== 'function') {
-      throw new Error('Argument must be a function')
+      console.log('Argument must be a function')
     }
     return (ctx, next) => Promise.resolve(factoryFn(ctx))
       .then((middleware) => Composer.unwrap(middleware)(ctx, next))
@@ -333,7 +333,7 @@ class Composer {
 
   static unwrap (handler) {
     if (!handler) {
-      throw new Error('Handler is undefined')
+      console.log('Handler is undefined')
     }
     return typeof handler.middleware === 'function'
       ? handler.middleware()
@@ -342,7 +342,7 @@ class Composer {
 
   static compose (middlewares) {
     if (!Array.isArray(middlewares)) {
-      throw new Error('Middlewares must be an array')
+      console.log('Middlewares must be an array')
     }
     if (middlewares.length === 0) {
       return Composer.safePassThru()
@@ -383,7 +383,7 @@ function normalizeTriggers (triggers) {
   }
   return triggers.map((trigger) => {
     if (!trigger) {
-      throw new Error('Invalid trigger')
+      console.log('Invalid trigger')
     }
     if (typeof trigger === 'function') {
       return trigger

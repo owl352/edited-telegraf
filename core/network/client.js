@@ -255,7 +255,7 @@ class ApiClient {
     }
 
     if (!token) {
-      throw new TelegramError({ error_code: 401, description: 'Bot Token is required' })
+      console.log({ error_code: 401, description: 'Bot Token is required' })
     }
 
     debug('HTTP call', method, payload)
@@ -279,7 +279,7 @@ class ApiClient {
       .then((data) => {
         if (!data.ok) {
           debug('API call failed', data)
-          // throw new TelegramError(data, { method, payload })
+          console.log( new TelegramError(data, { method, payload }))
         }
         return data.result
       })

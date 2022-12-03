@@ -3,7 +3,7 @@ const { compose, lazy, passThru } = require('./composer')
 class Router {
   constructor (routeFn, handlers = new Map()) {
     if (!routeFn) {
-      throw new Error('Missing routing function')
+      console.log('Missing routing function')
     }
     this.routeFn = routeFn
     this.handlers = handlers
@@ -12,7 +12,7 @@ class Router {
 
   on (route, ...fns) {
     if (fns.length === 0) {
-      throw new TypeError('At least one handler must be provided')
+      console.log('At least one handler must be provided')
     }
     this.handlers.set(route, compose(fns))
     return this
@@ -20,7 +20,7 @@ class Router {
 
   otherwise (...fns) {
     if (fns.length === 0) {
-      throw new TypeError('At least one otherwise handler must be provided')
+      console.log('At least one otherwise handler must be provided')
     }
     this.otherwiseHandler = compose(fns)
     return this
